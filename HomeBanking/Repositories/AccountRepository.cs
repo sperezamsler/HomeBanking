@@ -45,5 +45,13 @@ namespace HomeBanking.Repositories
             .ToList();
 
         }
+
+        public Account FindByNumber(string Number)
+        {
+            return FindByCondition(ac => ac.Number == Number)
+                .Include(Account => Account.Transactions)
+                .FirstOrDefault();
+        }
     }
 }
+

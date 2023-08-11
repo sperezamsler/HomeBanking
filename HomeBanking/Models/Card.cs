@@ -15,5 +15,15 @@ namespace HomeBanking.Models
         public DateTime ThruDate{ get; set; }
         public Client Client { get; set; }
         public long ClientId { get; set; }
+
+        public static bool IsCardType(string cardType)
+        {
+            return CardType.TryParse(cardType, out CardType result);
+        }
+
+        public static bool IsCardColor(string cardColor)
+        {
+            return CardColor.TryParse(cardColor, out CardColor result);
+        }
     }
 }

@@ -1,4 +1,5 @@
 
+using HomeBanking.Controller;
 using HomeBanking.Models;
 using HomeBanking.Repositories;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -34,6 +35,9 @@ namespace HomeBanking
             services.AddDbContext<HomeBankingContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("HomeBankingConexion")));
             services.AddScoped<IClientRepository, ClientRepository>();
             services.AddScoped<IAccountRepository, AccountRepository>();
+            services.AddScoped<ICardsRepository, CardsRepository>();
+            services.AddScoped<AccountsController>();
+            services.AddScoped<CardsController>();
             services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
             //autenticación
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
