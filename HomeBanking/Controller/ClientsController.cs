@@ -117,6 +117,43 @@ namespace HomeBanking.Controller
 
         }
 
+        [HttpGet("current/accounts")]
+        public IActionResult GetAccounts()
+        {
+            IEnumerable<AccountDTO> accounts;
+
+            try
+            {
+                string email = User.FindFirst("Client") != null ? User.FindFirst("Client").Value : String.Empty;
+                if (email == String.Empty)
+                {
+                    return Forbid();
+                }
+
+                Client client = _clientRepository.FindByEmail(email);
+
+                if (client == null)
+                {
+                    return Forbid();
+                }
+
+                accounts = client.Accounts.Select(ac => new AccountDTO
+                {
+                    Id = ac.Id,
+                    Balance = ac.Balance,
+                    CreationDate = ac.CreationDate,
+                    Number = ac.Number,
+                }).ToList();
+
+
+                return Ok(accounts);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
 
 
         [HttpGet("{id}")]
