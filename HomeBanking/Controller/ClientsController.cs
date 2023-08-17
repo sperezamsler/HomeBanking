@@ -406,7 +406,7 @@ namespace HomeBanking.Controller
                 string email = User.FindFirst("Client") != null ? User.FindFirst("Client").Value : String.Empty;
                 if (email == String.Empty)
                 {
-                    return Forbid("Do not have authorization");
+                    return Forbid("Sin autorizacion");
                 }
 
                 Client client = _clientRepository.FindByEmail(email);
@@ -421,7 +421,7 @@ namespace HomeBanking.Controller
                     !Card.IsCardType(card.Type) ||
                     !Card.IsCardColor(card.Color))
                 {
-                    return StatusCode(403, "Invalid Data");
+                    return StatusCode(403, "Datos Incorrectos");
                 }
 
                 foreach (Card cardAux in client.Cards)
@@ -442,7 +442,7 @@ namespace HomeBanking.Controller
                 CardDTO newCardDTO = _cardsController.Post(cardHolder, client.Id, card);
                 if (newCardDTO == null)
                 {
-                    return StatusCode(403, "Card not created at cardsController");
+                    return StatusCode(403, "Card not created at Cards Controller");
                 }
 
                 return Created("", newCardDTO);

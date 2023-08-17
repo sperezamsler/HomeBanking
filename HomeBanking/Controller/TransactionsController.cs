@@ -108,29 +108,29 @@ namespace HomeBanking.Controller
                 return StatusCode(500, ex.Message);
             }
         }
-        [HttpGet]
-        public IActionResult Get()
-        {
-            IEnumerable<Transaction> transactions = _transactionRepository.GetAllTransactions();
-            if (transactions == null)
-            {
-                return Forbid("Could not access to transactions");
-            }
+        //[HttpGet]
+        //public IActionResult Get()
+        //{
+        //    IEnumerable<Transaction> transactions = _transactionRepository.GetAllTransactions();
+        //    if (transactions == null)
+        //    {
+        //        return Forbid("Could not access to transactions");
+        //    }
 
-            List<TransactionDTO> transactionsDTO = new List<TransactionDTO>();
+        //    List<TransactionDTO> transactionsDTO = new List<TransactionDTO>();
 
-            foreach (Transaction transaction in transactions)
-            {
-                transactionsDTO.Add(new TransactionDTO()
-                {
-                    Type = transaction.Type,
-                    Amount = transaction.Amount,
-                    Description = transaction.Description,
-                    Date = transaction.Date,
-                });
-            }
+        //    foreach (Transaction transaction in transactions)
+        //    {
+        //        transactionsDTO.Add(new TransactionDTO()
+        //        {
+        //            Type = transaction.Type,
+        //            Amount = transaction.Amount,
+        //            Description = transaction.Description,
+        //            Date = transaction.Date,
+        //        });
+        //    }
 
-            return Ok(transactionsDTO);
-        }
+        //    return Ok(transactionsDTO);
+        //}
     }
 }
